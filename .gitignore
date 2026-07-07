@@ -1,0 +1,26 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+/vendor/
+/node_modules/
+
+# Build/test artifacts
+coverage/
+.phpunit.result.cache
+
+# Environment files
+.env
+.env.*
+
+# Keep local prompt out of version control
+life-os-plugin-prompt.md
