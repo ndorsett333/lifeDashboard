@@ -24,3 +24,4 @@ coverage/
 
 # Keep local prompt out of version control
 life-os-plugin-prompt.md
+wordpressDev.md

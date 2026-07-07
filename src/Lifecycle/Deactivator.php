@@ -9,5 +9,6 @@ final class Deactivator
     public static function deactivate(): void
     {
         // Keep data on deactivation. Cleanup is handled in uninstall.php.
+        flush_rewrite_rules();
     }
 }
