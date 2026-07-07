@@ -18,22 +18,35 @@ define('LIFE_OS_PATH', plugin_dir_path(__FILE__));
 define('LIFE_OS_URL', plugin_dir_url(__FILE__));
 
 $life_os_autoloader = LIFE_OS_PATH . 'vendor/autoload.php';
+$life_os_fallback   = LIFE_OS_PATH . 'src/autoload.php';
 
-if (! file_exists($life_os_autoloader)) {
+if (file_exists($life_os_autoloader)) {
+    require_once $life_os_autoloader;
+} elseif (file_exists($life_os_fallback)) {
+    require_once $life_os_fallback;
+
+    add_action('admin_notices', static function (): void {
+        if (! current_user_can('activate_plugins')) {
+            return;
+        }
+
+        echo '<div class="notice notice-warning"><p>';
+        echo esc_html__('Life OS is running without Composer autoload. Install dependencies with composer install when available.', 'life-os');
+        echo '</p></div>';
+    });
+} else {
     add_action('admin_notices', static function (): void {
         if (! current_user_can('activate_plugins')) {
             return;
         }
 
         echo '<div class="notice notice-error"><p>';
-        echo esc_html__('Life OS is missing Composer dependencies. Run composer install in the plugin directory.', 'life-os');
+        echo esc_html__('Life OS autoload files are missing. Reinstall the plugin files.', 'life-os');
         echo '</p></div>';
     });
 
     return;
 }
-
-require_once $life_os_autoloader;
 
 register_activation_hook(__FILE__, [\LifeOS\Lifecycle\Activator::class, 'activate']);
 register_deactivation_hook(__FILE__, [\LifeOS\Lifecycle\Deactivator::class, 'deactivate']);
