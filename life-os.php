@@ -24,16 +24,6 @@ if (file_exists($life_os_autoloader)) {
     require_once $life_os_autoloader;
 } elseif (file_exists($life_os_fallback)) {
     require_once $life_os_fallback;
-
-    add_action('admin_notices', static function (): void {
-        if (! current_user_can('activate_plugins')) {
-            return;
-        }
-
-        echo '<div class="notice notice-warning"><p>';
-        echo esc_html__('Life OS is running without Composer autoload. Install dependencies with composer install when available.', 'life-os');
-        echo '</p></div>';
-    });
 } else {
     add_action('admin_notices', static function (): void {
         if (! current_user_can('activate_plugins')) {
