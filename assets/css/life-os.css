@@ -1,1 +1,333 @@
-/* Life OS plugin stylesheet scaffold. */
+:root {
+	--life-bg-0: #0b0f17;
+	--life-bg-1: #121428;
+	--life-bg-2: #0f1320;
+	--life-line: #ff5da2;
+	--life-line-soft: rgba(255, 93, 162, 0.35);
+	--life-accent: #7ef8ff;
+	--life-accent-2: #b8ff6a;
+	--life-text: #f2f5ff;
+	--life-muted: #95a2c4;
+	--life-panel: rgba(16, 20, 35, 0.87);
+	--life-shadow: 0 10px 30px rgba(3, 5, 10, 0.6);
+}
+
+body.life-os-frontend {
+	margin: 0;
+	background: radial-gradient(circle at 14% 20%, rgba(126, 248, 255, 0.08), transparent 24%),
+		radial-gradient(circle at 82% 0%, rgba(255, 93, 162, 0.12), transparent 28%),
+		linear-gradient(180deg, var(--life-bg-0), var(--life-bg-1));
+	color: var(--life-text);
+	font-family: "IBM Plex Mono", "JetBrains Mono", "Fira Code", "Courier New", monospace;
+	min-height: 100vh;
+}
+
+.life-os-frontend-page {
+	position: relative;
+	min-height: 100vh;
+	padding: 1.2rem;
+}
+
+.life-os-bg-glow {
+	position: fixed;
+	inset: 0;
+	background-image: linear-gradient(rgba(126, 248, 255, 0.06) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(126, 248, 255, 0.06) 1px, transparent 1px);
+	background-size: 28px 28px;
+	mask-image: radial-gradient(circle at 50% 35%, black, transparent 75%);
+	pointer-events: none;
+	z-index: 0;
+	animation: life-grid-drift 18s linear infinite;
+}
+
+.life-os-shell {
+	position: relative;
+	z-index: 1;
+	max-width: 1360px;
+	margin: 0 auto;
+}
+
+.panel {
+	background: var(--life-panel);
+	border: 1px solid var(--life-line-soft);
+	box-shadow: var(--life-shadow);
+	border-radius: 12px;
+	padding: 1rem;
+	backdrop-filter: blur(2px);
+	transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.life-os-grid .panel:hover,
+.life-os-grid .panel:focus-within {
+	border-color: rgba(126, 248, 255, 0.82);
+	box-shadow: 0 0 0 1px rgba(126, 248, 255, 0.45), 0 0 24px rgba(126, 248, 255, 0.18), var(--life-shadow);
+	transform: translateY(-2px);
+}
+
+.life-os-topbar {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	align-items: flex-start;
+	margin-bottom: 1rem;
+	border-color: rgba(126, 248, 255, 0.5);
+	animation: life-drop-in 380ms ease-out;
+}
+
+.brand .eyebrow {
+	margin: 0 0 0.4rem;
+	color: var(--life-muted);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+}
+
+.brand h1 {
+	margin: 0;
+	font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+	line-height: 1;
+	color: var(--life-accent);
+	text-shadow: 0 0 10px rgba(126, 248, 255, 0.35);
+}
+
+.status-chip-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	justify-content: flex-end;
+}
+
+.status-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.3rem 0.55rem;
+	border: 1px solid rgba(184, 255, 106, 0.45);
+	border-radius: 999px;
+	font-size: 0.72rem;
+	color: var(--life-accent-2);
+	background: rgba(4, 8, 16, 0.75);
+}
+
+.life-os-grid {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	gap: 0.85rem;
+}
+
+.life-os-grid .panel {
+	animation: life-drop-in 450ms ease-out both;
+}
+
+.life-os-grid .panel:nth-child(2) {
+	animation-delay: 60ms;
+}
+
+.life-os-grid .panel:nth-child(3) {
+	animation-delay: 110ms;
+}
+
+.life-os-grid .panel:nth-child(4) {
+	animation-delay: 170ms;
+}
+
+.life-os-grid .panel:nth-child(5) {
+	animation-delay: 220ms;
+}
+
+.life-os-grid .panel:nth-child(6) {
+	animation-delay: 270ms;
+}
+
+.panel h2 {
+	margin: 0 0 0.65rem;
+	font-size: 1rem;
+	color: var(--life-text);
+}
+
+.panel-focus {
+	grid-column: span 5;
+}
+
+.panel-ai {
+	grid-column: span 4;
+}
+
+.panel-progress {
+	grid-column: span 3;
+}
+
+.panel-streaks,
+.panel-projects,
+.panel-log {
+	grid-column: span 4;
+}
+
+.muted {
+	color: var(--life-muted);
+}
+
+.mono {
+	font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+}
+
+.task-list,
+.project-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.task-list li,
+.project-list li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.45rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid rgba(149, 162, 196, 0.2);
+	font-size: 0.88rem;
+}
+
+.task-list li:last-child,
+.project-list li:last-child {
+	border-bottom: 0;
+}
+
+.dot {
+	width: 0.55rem;
+	height: 0.55rem;
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 0.5rem;
+	box-shadow: 0 0 8px rgba(126, 248, 255, 0.9);
+	background: var(--life-accent);
+	flex: 0 0 auto;
+}
+
+.task-list li {
+	justify-content: flex-start;
+}
+
+.project-list em {
+	color: var(--life-accent-2);
+	font-style: normal;
+	text-transform: uppercase;
+	font-size: 0.73rem;
+	letter-spacing: 0.06em;
+}
+
+.meter-row {
+	margin-bottom: 0.75rem;
+	font-size: 0.84rem;
+}
+
+.meter-row span {
+	display: block;
+	margin-bottom: 0.35rem;
+}
+
+.meter {
+	height: 0.58rem;
+	background: rgba(149, 162, 196, 0.14);
+	border-radius: 999px;
+	overflow: hidden;
+}
+
+.meter > span {
+	display: block;
+	height: 100%;
+	margin-bottom: 0;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--life-accent), var(--life-line));
+	box-shadow: 0 0 10px rgba(255, 93, 162, 0.5);
+}
+
+.streak-row {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.45rem 0;
+	border-bottom: 1px dashed rgba(149, 162, 196, 0.25);
+}
+
+.streak-row strong {
+	color: var(--life-accent-2);
+}
+
+.panel-log pre {
+	margin: 0;
+	background: rgba(6, 9, 18, 0.82);
+	border: 1px solid rgba(126, 248, 255, 0.25);
+	border-radius: 8px;
+	padding: 0.8rem;
+	color: #c8d6ff;
+	font-size: 0.78rem;
+	line-height: 1.5;
+	overflow-x: auto;
+}
+
+.ghost-btn {
+	appearance: none;
+	border: 1px solid rgba(255, 93, 162, 0.55);
+	color: #ffd6e8;
+	background: rgba(255, 93, 162, 0.12);
+	border-radius: 8px;
+	padding: 0.4rem 0.7rem;
+	font: inherit;
+	cursor: not-allowed;
+}
+
+@media (max-width: 1100px) {
+	.panel-focus,
+	.panel-ai,
+	.panel-progress,
+	.panel-streaks,
+	.panel-projects,
+	.panel-log {
+		grid-column: span 6;
+	}
+}
+
+@media (max-width: 740px) {
+	.life-os-frontend-page {
+		padding: 0.7rem;
+	}
+
+	.life-os-topbar {
+		flex-direction: column;
+	}
+
+	.status-chip-wrap {
+		justify-content: flex-start;
+	}
+
+	.panel-focus,
+	.panel-ai,
+	.panel-progress,
+	.panel-streaks,
+	.panel-projects,
+	.panel-log {
+		grid-column: span 12;
+	}
+}
+
+@keyframes life-drop-in {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes life-grid-drift {
+	from {
+		transform: translateY(0);
+	}
+
+	to {
+		transform: translateY(28px);
+	}
+}
